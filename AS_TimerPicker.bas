@@ -32,6 +32,12 @@ V1.08
 		-Default: 15
 	-Add get and set SecondRowGap
 		-Default: 5dip
+V1.09
+	-BugFix
+V1.10
+	-BugFix in set Hours
+V1.11
+	-B4A BugFix
 #End If
 
 #DesignerProperty: Key: BackgroundColor, DisplayName: Background Color, FieldType: Color, DefaultValue: 0xFF131416
@@ -206,7 +212,7 @@ Public Sub setCurrentMode(Mode As String)
 		mValue = m_LastMinuteValue
 	Else
 		mMax = 720
-		mValue = 60*m_LastHourValue
+		mValue = 60*getHours
 	End If
 	isInnerCircle = False
 	If m_CurrentMode = getCurrentMode_HourSelection And mValue > 11*60 Then isInnerCircle = True
@@ -256,7 +262,7 @@ Private Sub xpnl_Background_Touch (Action As Int, X As Float, Y As Float)
 		NewValue = Max(mMin, Min(mMax, NewValue))
 		Dim OldValue As Int = mValue
 		If NewValue <> mValue Then
-
+	
 			mValue = NewValue
 		
 			If m_CurrentMode = getCurrentMode_HourSelection Then
@@ -461,8 +467,13 @@ Public Sub getMinutes As Int
 End Sub
 
 Public Sub setHours(Hour As Int)
-	m_LastHourValue = (IIf(Hour > 12,Hour - 12,Hour))
-	If m_CurrentMode = getCurrentMode_HourSelection Then 
+	If m_TimeFormat = getTimeFormat_24h Then
+		m_LastHourValue = Hour
+	Else
+		m_LastHourValue = (IIf(Hour > 12,Hour - 12,Hour))
+	End If
+
+	If m_CurrentMode = getCurrentMode_HourSelection Then
 		mValue = 60*(IIf(Hour > 12,Hour - 12,Hour))
 		Dim tmp_Value As Int = 60*Hour
 		If tmp_Value > 60*11 And m_TimeFormat = getTimeFormat_24h Then isInnerCircle = True Else isInnerCircle = False
@@ -472,7 +483,7 @@ Public Sub setHours(Hour As Int)
 End Sub
 
 Public Sub getHours As Int
-	Return m_LastHourValue
+	Return IIf(m_LastHourValue = 24,0,m_LastHourValue)
 End Sub
 
 #End Region
@@ -529,7 +540,7 @@ Private Sub SelectedMinuteChanged
 End Sub
 
 Private Sub SelectedHour
-	Dim Hour As Int = IIf(isInnerCircle = False,mValue/60,12 + (mValue/60)).As(Int)
+	Dim Hour As Int = IIf(isInnerCircle = False,mValue/60,12 + (IIf(xui.IsB4A And mValue/60 = 12,0, mValue/60))).As(Int)
 	If m_TimeFormat = getTimeFormat_12h And Hour = 0 Then Hour = 12
 	m_LastHourValue = Hour
 	If xui.SubExists(mCallBack, mEventName & "_SelectedHour",1) Then
@@ -546,7 +557,7 @@ End Sub
 
 Private Sub SelectionDone
 	If xui.SubExists(mCallBack, mEventName & "_SelectionDone",2) Then
-		CallSub3(mCallBack, mEventName & "_SelectionDone",m_LastHourValue,m_LastMinuteValue)
+		CallSub3(mCallBack, mEventName & "_SelectionDone",getHours,m_LastMinuteValue)
 	End If
 End Sub
 

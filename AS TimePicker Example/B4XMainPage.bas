@@ -29,7 +29,8 @@ Private Sub B4XPage_Created (Root1 As B4XView)
 	'Sleep(0)
 	'AS_TimerPicker1.Hours = 16
 	AS_TimerPicker1.Refresh
-	
+	Sleep(6000)
+	Log(AS_TimerPicker1.Hours)
 End Sub
 
 
@@ -47,4 +48,5 @@ End Sub
 
 Private Sub AS_TimerPicker1_SelectedMinute (Minute As Int)
 	Log("SelectedMinute: " & Minute)
+	Log(AS_TimerPicker1.Hours)
 End Sub

@@ -7,6 +7,6 @@ ModuleBreakpoints2=
 ModuleClosedNodes0=1,4
 ModuleClosedNodes1=
 ModuleClosedNodes2=1
-NavigationStack=AS_TimerPicker,ValueChanged,458,0,AS_TimerPicker,getMinutes,409,0,AS_TimerPicker,setTimeFormat,396,0,AS_TimerPicker,getHours,422,0,AS_TimerPicker,setHours,414,6,AS_TimerPicker,Refresh,271,0,AS_TimerPicker,DesignerCreateView,123,0,AS_TimerPicker,setCurrentMode,188,0,AS_TimerPicker,getCurrentMode,189,3,B4XMainPage,B4XPage_Created,25,6,B4XMainPage,Class_Globals,11,0
+NavigationStack=AS_TimerPicker,getMinutes,409,0,AS_TimerPicker,setTimeFormat,396,0,AS_TimerPicker,getHours,422,0,AS_TimerPicker,setHours,414,6,AS_TimerPicker,Refresh,271,0,AS_TimerPicker,DesignerCreateView,123,0,AS_TimerPicker,setCurrentMode,188,0,AS_TimerPicker,getCurrentMode,189,3,B4XMainPage,B4XPage_Created,25,6,B4XMainPage,Class_Globals,11,0,B4XMainPage,Initialize,13,0
 SelectedBuild=0
 VisibleModules=2,1
